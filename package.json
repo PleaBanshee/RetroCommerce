@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "SET NODE_ENV=development & nodemon backend/server.js",
-    "prod": "SET NODE_ENV=production & node backend/server.js",
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/server.js",
+    "prod": "SET NODE_ENV=PRODUCTION& node backend/server.js",
     "seeder": "node backend/utils/seeder.js"
   },
   "repository": {
