@@ -17,7 +17,6 @@ const server = app.listen(process.env.PORT, () => {
     console.log(
         `Server is running on port ${process.env.PORT} in ${process.env.NODE_ENV} mode.`
     );
-    console.log(`${process.env.NODE_ENV === "PRODUCTION"} `);
 });
 
 // handle unhandled promise rejections
