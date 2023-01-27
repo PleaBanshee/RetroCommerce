@@ -14,8 +14,11 @@ exports.newProduct = catchAsyncErrors(async(req, res, next) => {
 });
 
 // retrieve all products --- GET /api/v1/products?keyword=apple
+// GET --- /api/v1/products?keyword=apple&category=Laptops
 exports.getProducts = catchAsyncErrors(async(req, res, next) => {
-    const apiFeatures = new APIFeatures(Product.find(), req.query).search();
+    const apiFeatures = new APIFeatures(Product.find(), req.query)
+        .search()
+        .filter();
     const products = await apiFeatures.query;
 
     res.status(200).json({
