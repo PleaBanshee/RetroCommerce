@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
-const cookieparser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 
 const errorMiddleware = require("./middlewares/errors");
 app.use(express.json());
-app.use(cookieparser());
+app.use(cookieParser());
 
 // Import all the routes
 const products = require("./routes/product");
