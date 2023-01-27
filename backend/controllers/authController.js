@@ -3,6 +3,7 @@ const User = require("../models/user");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const { json } = require("body-parser");
+const user = require("../models/user");
 
 // Register a user => /api/v1/register
 exports.registerUser = catchAsyncErrors(async(req, res, next) => {
@@ -23,5 +24,34 @@ exports.registerUser = catchAsyncErrors(async(req, res, next) => {
         success: true,
         token,
         user,
+    });
+});
+
+// Login for user => /api/v1/login
+exports.loginUser = catchAsyncErrors(async(req, res, next) => {
+    const { email, password } = req.body;
+
+    // check if user entered email and password
+    if (!email || !password) {
+        return next(new ErrorHandler("Please fill in all fields", 400));
+    }
+
+    // find user in the DB
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+        return next(new ErrorHandler("Invalid email or password", 401));
+    }
+
+    // Check if password is valid
+    const isPasswordMatched = await user.comparePassword(password);
+    if (!isPasswordMatched) {
+        return next(new ErrorHandler("Invalid email or password", 400));
+    }
+
+    const token = user.getJwtToken();
+
+    res.status(200).json({
+        success: true,
+        token,
     });
 });
