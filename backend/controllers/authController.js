@@ -131,7 +131,7 @@ exports.getuserProfile = catchAsyncErrors(async(req, res, next) => {
     const user = await User.findById(req.user.id);
 
     res.status(200).json({
-        sucess: true,
+        success: true,
         user,
     });
 });
@@ -150,6 +150,26 @@ exports.updatePassword = catchAsyncErrors(async(req, res, next) => {
     await user.save();
 
     sendToken(user, 200, res);
+});
+
+// update user profile => /api/v1/me/update
+exports.updateProfile = catchAsyncErrors(async(req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+    };
+
+    // TODO: update avatar
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: true,
+    });
+
+    res.status(200).json({
+        success: true,
+    });
 });
 
 // Log out a user and clear cookie -> /api/v1/logout
