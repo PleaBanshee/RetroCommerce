@@ -5,6 +5,8 @@ const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendEmail = require("../utils/sendEmail");
 const sendToken = require("../utils/jwtToken");
 const crypto = require("crypto");
+const user = require("../models/user");
+const { send } = require("process");
 
 // Register a user => /api/v1/register
 exports.registerUser = catchAsyncErrors(async(req, res, next) => {
@@ -132,6 +134,22 @@ exports.getuserProfile = catchAsyncErrors(async(req, res, next) => {
         sucess: true,
         user,
     });
+});
+
+// update or change a user's password => /api/v1/password/update
+exports.updatePassword = catchAsyncErrors(async(req, res, next) => {
+    const user = await User.findById(req.user.id).select("+password");
+
+    // check previous user password
+    const isMatched = await user.comparePassword(req.body.oldPassword);
+    if (!isMatched) {
+        return next(new ErrorHandler("Old password is incorrect", 400));
+    }
+
+    user.password = req.body.password;
+    await user.save();
+
+    sendToken(user, 200, res);
 });
 
 // Log out a user and clear cookie -> /api/v1/logout
