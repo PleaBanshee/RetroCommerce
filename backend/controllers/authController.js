@@ -127,7 +127,7 @@ exports.resetPassword = catchAsyncErrors(async(req, res, next) => {
 
 // retrieve current user profile
 // => /api/v1/me
-exports.getuserProfile = catchAsyncErrors(async(req, res, next) => {
+exports.getUserProfile = catchAsyncErrors(async(req, res, next) => {
     const user = await User.findById(req.user.id);
 
     res.status(200).json({
@@ -182,5 +182,33 @@ exports.logout = catchAsyncErrors(async(req, res, next) => {
     res.status(200).json({
         success: true,
         message: "Logged out",
+    });
+});
+
+// ADMIN ROUTES
+// ============
+// get all users => /api/v1/admin/users
+exports.allUsers = catchAsyncErrors(async(req, res, next) => {
+    const users = await User.find();
+
+    res.status(200).json({
+        success: true,
+        users,
+    });
+});
+
+// get a single user's details => /api/v1/admin/user/:id
+exports.getUserDetails = catchAsyncErrors(async(req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(
+            new ErrorHandler(`User with id ${req.params.id} does not exist`, 400)
+        );
+    }
+
+    res.status(200).json({
+        success: true,
+        user,
     });
 });
