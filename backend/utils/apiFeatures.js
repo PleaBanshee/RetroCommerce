@@ -1,4 +1,4 @@
-const { validate } = require("../models/Product");
+const { validate } = require("../models/product");
 
 class APIFeatures {
     constructor(query, queryStr) {
