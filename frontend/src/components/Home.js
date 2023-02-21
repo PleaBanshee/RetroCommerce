@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
+import MetaData from "./layout/MetaData";
 import "../App.css";
 
 const Home = () => {
   return (
     <Fragment>
+      <MetaData title={"Online Shopping"} />
       <h1 id="products_heading">Latest Products</h1>
       <section id="products" className="container mt-5">
         <div className="row">
