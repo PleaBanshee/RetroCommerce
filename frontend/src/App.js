@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Home from "./components/Home";
@@ -9,9 +14,10 @@ function App() {
       <div className="App">
         <Header />
         <div className="container container-fluid">
-          <Route path="/" component={Home} exact />
+          <Routes>
+            <Route path="/" element={<Home/>} exact />
+          </Routes>
         </div>
-        <Home />
         <Footer />
       </div>
     </Router>
