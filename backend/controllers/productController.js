@@ -26,15 +26,13 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     .pagination(resPerPage);
   const products = await apiFeatures.query;
 
-  setTimeout(() => {
-    res.status(200).json({
-      success: true,
-      message: "This route displays all products in database",
-      count: products.length,
-      productsCount,
-      products,
-    });
-  }, 2000);
+  res.status(200).json({
+    success: true,
+    message: "This route displays all products in database",
+    count: products.length,
+    productsCount,
+    products,
+  });
 });
 
 // retrieve a single product --- GET /api/v1/product/:id
