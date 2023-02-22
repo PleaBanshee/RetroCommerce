@@ -34,7 +34,7 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
       productsCount,
       products,
     });
-  }, 5000);
+  }, 2000);
 });
 
 // retrieve a single product --- GET /api/v1/product/:id
