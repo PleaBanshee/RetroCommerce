@@ -29,8 +29,8 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "This route displays all products in database",
-    count: products.length,
     productsCount,
+    resPerPage,
     products,
   });
 });
