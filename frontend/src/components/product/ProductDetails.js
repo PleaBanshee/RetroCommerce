@@ -7,7 +7,7 @@ import { Carousel } from "react-bootstrap";
 import MetaData from "../layout/MetaData";
 import { useParams } from "react-router-dom";
 
-const ProductDetails = ({ match }) => {
+const ProductDetails = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const params = useParams();

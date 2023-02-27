@@ -6,11 +6,13 @@ import { getProducts } from "../actions/productActions";
 import Loader from "./layout/Loader";
 import { useAlert } from "react-alert";
 import Pagination from "react-js-pagination";
+import { useParams } from "react-router-dom";
 
 const Home = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const params = useParams();
 
   const {
     loading,
@@ -21,13 +23,15 @@ const Home = () => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
+  const keyword = params.keyword;
+
   useEffect(() => {
     if (error) {
       return alert.error(error);
     }
 
-    dispatch(getProducts(currentPage));
-  }, [dispatch, alert, error, currentPage]);
+    dispatch(getProducts(keyword, currentPage));
+  }, [dispatch, alert, error, keyword, currentPage]);
 
   function setCurrentPageNo(pageNumber) {
     setCurrentPage(pageNumber);
