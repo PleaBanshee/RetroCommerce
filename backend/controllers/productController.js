@@ -17,20 +17,23 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 // retrieve all products --- GET /api/v1/products?keyword=apple
 // GET --- /api/v1/products?keyword=apple&category=Laptops
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
-  const resPerPage = 8;
+  const resPerPage = 4;
   const productsCount = await Product.countDocuments();
 
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
-    .filter()
-    .pagination(resPerPage);
-  const products = await apiFeatures.query;
+    .filter();
+
+  let products = await apiFeatures.query;
+  let filteredProductsCount = products.length;
+  apiFeatures.pagination(resPerPage);
 
   res.status(200).json({
     success: true,
     message: "This route displays all products in database",
     productsCount,
     resPerPage,
+    filteredProductsCount,
     products,
   });
 });
