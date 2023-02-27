@@ -7,6 +7,7 @@ import {
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Home from "./components/Home";
+import ProductDetails from "./components/product/ProductDetails";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Header />
         <div className="container container-fluid">
           <Routes>
-            <Route path="/" element={<Home/>} exact />
+            <Route path="/" element={<Home />} exact />
+            <Route path="/product/:id" element={<ProductDetails />} exact />
           </Routes>
         </div>
         <Footer />
