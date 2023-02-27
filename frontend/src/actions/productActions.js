@@ -9,26 +9,30 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from "../constants/productConstants";
 
-export const getProducts = (currentPage = 1) => async (dispatch) => {
-  try {
-    dispatch({ type: ALL_PRODUCTS_REQUEST });
+export const getProducts =
+  (keyword = "", currentPage = 1) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: ALL_PRODUCTS_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/products?page=${currentPage}`);
+      const { data } = await axios.get(
+        `/api/v1/products?keyword=${keyword}&page=${currentPage}`
+      );
 
-    dispatch({
-      type: ALL_PRODUCTS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_PRODUCTS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: ALL_PRODUCTS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_PRODUCTS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const getProductDetails = (id) => async (dispatch) => {
   try {
