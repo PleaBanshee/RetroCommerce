@@ -28,6 +28,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const token = user.getJwtToken();
 
   sendToken(user, 200, res);
+  console.log(user);
 });
 
 // Login for user => /api/v1/login

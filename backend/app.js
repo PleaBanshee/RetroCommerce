@@ -3,11 +3,13 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const bodyparser = require("body-parser");
 const cloudinary = require("cloudinary");
+const fileUpload = require("express-fileupload");
 
 const errorMiddleware = require("./middlewares/errors");
 app.use(express.json());
-app.use(cookieParser());
 app.use(bodyparser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(fileUpload());
 
 // Cloudinary configs
 cloudinary.config({
