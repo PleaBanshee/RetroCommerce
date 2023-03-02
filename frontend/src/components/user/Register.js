@@ -43,8 +43,10 @@ const Register = () => {
     formData.set("email", email);
     formData.set("password", password);
     formData.set("avatar", avatar);
-    dispatch(register(formData));
-    console.log(formData);
+    const object = {};
+    formData.forEach((value, key) => (object[key] = value));
+    const jsonObject = object;
+    dispatch(register(jsonObject));
   };
 
   const onChange = (e) => {
@@ -77,7 +79,7 @@ const Register = () => {
             <h1 className="mb-3">Register</h1>
 
             <div className="form-group">
-              <label htmlFor="email_field">Name</label>
+              <label htmlFor="name_field">Name</label>
               <input
                 type="name"
                 id="name_field"
@@ -130,7 +132,7 @@ const Register = () => {
                     name="avatar"
                     className="custom-file-input"
                     id="customFile"
-                    accept="images/*"
+                    accept="image/*"
                     onChange={onChange}
                   />
                   <label className="custom-file-label" htmlFor="customFile">
