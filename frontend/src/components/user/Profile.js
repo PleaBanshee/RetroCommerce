@@ -57,10 +57,8 @@ const Profile = () => {
               </Link>
             </div>
           </div>
-          )
         </Fragment>
       )}
-      ;
     </Fragment>
   );
 };
