@@ -4,15 +4,17 @@ import { useAlert } from "react-alert";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { user, loading } = useSelector((state) => state.auth);
 
   const logoutHandler = () => {
     dispatch(logout());
+    navigate("/login");
     alert.success("Logged out successfully.");
   };
 
@@ -44,7 +46,7 @@ const Header = () => {
             <div className="ml-4 dropdown d-inline">
               <Link
                 to="#!"
-                className="btn dropdown-toggle text-white"
+                className="btn dropdown-toggle text-white mr-4"
                 type="button"
                 id="dropDownMenuButton"
                 data-toggle="dropdown"
