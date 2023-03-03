@@ -3,12 +3,18 @@ import Search from "./Search";
 import { useAlert } from "react-alert";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/userActions";
 
 const Header = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.auth);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    alert.success("Logged out successfully.");
+  };
 
   return (
     <Fragment>
@@ -79,7 +85,7 @@ const Header = () => {
                 <Link
                   className="dropdown-item text-danger"
                   to="/logout"
-                  // onClick={() => dispatch(logout())}
+                  onClick={logoutHandler}
                 >
                   Logout
                 </Link>
