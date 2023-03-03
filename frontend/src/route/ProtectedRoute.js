@@ -6,8 +6,8 @@ import { loadUser } from "../actions/userActions";
 const ProtectedRoute = ({ children, isAdmin }) => {
   const {
     isAuthenticated = false,
-    loading = true,
     user,
+    loading = true,
   } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -16,9 +16,11 @@ const ProtectedRoute = ({ children, isAdmin }) => {
     if (!user) {
       dispatch(loadUser());
     }
-  }, [dispatch, isAuthenticated, loading, user]);
+  }, [isAuthenticated, loading]);
 
-  if (loading) return <h1>loading...</h1>;
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   if (!loading && isAuthenticated) {
     if (isAdmin === true && user.role !== "admin") {
