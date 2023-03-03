@@ -8,6 +8,7 @@ import Login from "./components/user/Login";
 import Register from "./components/user/Register";
 import Profile from "./components/user/Profile";
 import ProtectedRoute from "./route/ProtectedRoute";
+import UpdateProfile from "./components/user/UpdateProfile";
 import { loadUser } from "./actions/userActions";
 import store from "./store";
 import "./App.css";
@@ -35,6 +36,15 @@ function App() {
                   <Profile />
                 </ProtectedRoute>
               }
+            />
+            <Route
+              path="/me/update"
+              element={
+                <ProtectedRoute>
+                  <UpdateProfile />
+                </ProtectedRoute>
+              }
+              exact
             />
           </Routes>
         </div>
