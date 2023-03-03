@@ -24,7 +24,10 @@ const Login = () => {
       navigate("/");
     }
 
-    if (error) {
+    if (
+      error &&
+      !error.includes("You need to be logged in first to access this page")
+    ) {
       alert.error(error);
       dispatch(clearErrors());
     }
