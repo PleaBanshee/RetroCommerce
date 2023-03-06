@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
 import Search from "./Search";
 import { useAlert } from "react-alert";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const alert = useAlert();
@@ -86,7 +85,7 @@ const Header = () => {
                 </Link>
                 <Link
                   className="dropdown-item text-danger"
-                  to="/logout"
+                  to="/"
                   onClick={logoutHandler}
                 >
                   Logout
