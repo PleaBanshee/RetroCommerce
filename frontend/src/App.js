@@ -10,6 +10,7 @@ import Profile from "./components/user/Profile";
 import ProtectedRoute from "./route/ProtectedRoute";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
+import ForgotPassword from "./components/user/ForgotPassword";
 import { loadUser } from "./actions/userActions";
 import store from "./store";
 import "./App.css";
@@ -30,6 +31,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/product/:id" element={<ProductDetails />} exact />
+            <Route path="/password/forgot" element={<ForgotPassword />} exact />
             <Route
               path="/me"
               element={
