@@ -38,7 +38,12 @@ const UpdatePassword = () => {
     formData.set("password", password);
     formData.set("confirmPassword", confirmPassword);
 
-    dispatch(updatePassword(formData));
+    if (password !== confirmPassword) {
+      alert.error("Passwords do not match");
+      dispatch(clearErrors());
+    } else {
+      dispatch(updatePassword(formData));
+    }
   };
 
   return (
