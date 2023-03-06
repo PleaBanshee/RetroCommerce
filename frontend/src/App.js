@@ -9,6 +9,7 @@ import Register from "./components/user/Register";
 import Profile from "./components/user/Profile";
 import ProtectedRoute from "./route/ProtectedRoute";
 import UpdateProfile from "./components/user/UpdateProfile";
+import UpdatePassword from "./components/user/UpdatePassword";
 import { loadUser } from "./actions/userActions";
 import store from "./store";
 import "./App.css";
@@ -43,6 +44,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <UpdateProfile />
+                </ProtectedRoute>
+              }
+              exact
+            />
+            <Route
+              path="/password/update"
+              element={
+                <ProtectedRoute>
+                  <UpdatePassword />
                 </ProtectedRoute>
               }
               exact
