@@ -36,6 +36,7 @@ function App() {
                   <Profile />
                 </ProtectedRoute>
               }
+              exact
             />
             <Route
               path="/me/update"
