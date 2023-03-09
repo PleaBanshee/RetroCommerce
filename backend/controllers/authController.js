@@ -5,6 +5,10 @@ const sendEmail = require("../utils/sendEmail");
 const sendToken = require("../utils/jwtToken");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
+const dotenv = require("dotenv");
+
+// Environment Variable Config
+dotenv.config({ path: "backend/config/config.env" });
 
 // Register a user => /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -73,9 +77,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // create reset password URL
-  const resetUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/password/reset/${resetToken}`;
+  const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
   const message = `Your password reset token:\n\n${resetUrl}\n\nIf you have not requested this email, then ignore it.`;
 
