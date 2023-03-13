@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails, clearErrors } from "../../actions/productActions";
 import { useAlert } from "react-alert";
@@ -8,6 +8,7 @@ import MetaData from "../layout/MetaData";
 import { useParams } from "react-router-dom";
 
 const ProductDetails = () => {
+  const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const alert = useAlert();
   const params = useParams();
@@ -23,6 +24,24 @@ const ProductDetails = () => {
       dispatch(clearErrors());
     }
   }, [dispatch, alert, error, params.id]);
+
+  const increaseQuantity = () => {
+    const count = document.querySelector(".count");
+
+    if (count.valueAsNumber >= product.stock) return;
+
+    const qty = count.valueAsNumber + 1;
+    setQuantity(qty);
+  };
+
+  const decreaseQuantityy = () => {
+    const count = document.querySelector(".count");
+
+    if (count.valueAsNumber <= 1) return;
+
+    const qty = count.valueAsNumber - 1;
+    setQuantity(qty);
+  };
 
   return (
     <Fragment>
@@ -66,16 +85,26 @@ const ProductDetails = () => {
 
               <p id="product_price">{product.price}</p>
               <div className="stockCounter d-inline">
-                <span className="btn btn-danger minus">-</span>
+                <span
+                  className="btn btn-danger minus"
+                  onClick={decreaseQuantityy}
+                >
+                  -
+                </span>
 
                 <input
                   type="number"
                   className="form-control count d-inline"
-                  value="1"
+                  value={quantity}
                   readOnly
                 />
 
-                <span className="btn btn-primary plus">+</span>
+                <span
+                  className="btn btn-primary plus"
+                  onClick={increaseQuantity}
+                >
+                  +
+                </span>
               </div>
               <button
                 type="button"
