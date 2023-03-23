@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../../actions/cartActions";
+import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -26,11 +26,11 @@ const Cart = () => {
     dispatch(addItemToCart(id, newQty));
   };
 
-  //   const removeCartItemHandler = (id) => {
-  //     dispatch(removeItemFromCart(id));
+  const removeCartItemHandler = (id) => {
+    dispatch(removeItemFromCart(id));
 
-  //     alert.success("Item removed from cart");
-  //   };
+    alert.success("Item removed from cart");
+  };
 
   //   const checkoutHandler = () => {
   //     document.querySelector("#checkout_btn").disabled = true;
@@ -110,7 +110,7 @@ const Cart = () => {
                         <i
                           id="delete_cart_item"
                           className="fa fa-trash btn btn-danger"
-                          //   onClick={() => removeCartItemHandler(item.product)}
+                          onClick={() => removeCartItemHandler(item.product)}
                         ></i>
                       </div>
                     </div>
