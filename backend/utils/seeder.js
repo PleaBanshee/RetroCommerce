@@ -1,4 +1,6 @@
-const Product = require("../models/Product");
+// NB!!! Run the seeder after making configurations to the products.json file
+
+const Product = require("../models/product");
 const dotenv = require("dotenv");
 const connectDB = require("../config/database");
 
