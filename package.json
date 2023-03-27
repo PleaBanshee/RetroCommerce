@@ -30,6 +30,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.3",
     "nodemailer": "^6.9.0",
+    "stripe": "^11.16.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {

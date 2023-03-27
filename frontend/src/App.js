@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -18,10 +18,26 @@ import ConfirmOrder from "./components/cart/ConfirmOrder";
 import { loadUser } from "./actions/userActions";
 import store from "./store";
 import "./App.css";
+import axios from "axios";
 
 function App() {
+  const [stripeApi, setStripeApi] = useState("");
+
   useEffect(() => {
     store.dispatch(loadUser());
+
+    async function getStripeApiKey() {
+      const response = await axios.get("/api/v1/stripeapi", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setStripeApi(data.stripeApiKey);
+    }
+
+    getStripeApiKey();
   }, []);
 
   return (
