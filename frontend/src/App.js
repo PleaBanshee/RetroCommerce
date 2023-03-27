@@ -15,10 +15,13 @@ import NewPassword from "./components/user/NewPassword";
 import Cart from "./components/cart/Cart";
 import Shipping from "./components/cart/Shipping";
 import ConfirmOrder from "./components/cart/ConfirmOrder";
+import Payment from "./components/cart/Payment";
 import { loadUser } from "./actions/userActions";
 import store from "./store";
 import "./App.css";
 import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
   const [stripeApi, setStripeApi] = useState("");
@@ -101,6 +104,18 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            {stripeApi && (
+              <Route
+                path="/payment"
+                element={
+                  <ProtectedRoute>
+                    <Elements stripe={loadStripe(stripeApi)}>
+                      <Payment />
+                    </Elements>
+                  </ProtectedRoute>
+                }
+              />
+            )}
           </Routes>
         </div>
         <Footer />
