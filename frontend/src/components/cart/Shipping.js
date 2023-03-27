@@ -19,8 +19,8 @@ const Shipping = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShippingInfo({ address, city, phoneNo, postalCode }));
-    navigate("/confirm");
+    dispatch(saveShippingInfo({ address, city, phoneNo, postalCode, country }));
+    navigate("/order/confirm");
   };
 
   return (
