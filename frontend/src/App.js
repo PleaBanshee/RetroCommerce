@@ -17,6 +17,7 @@ import Shipping from "./components/cart/Shipping";
 import ConfirmOrder from "./components/cart/ConfirmOrder";
 import Payment from "./components/cart/Payment";
 import OrderSuccess from "./components/cart/OrderSuccess";
+import ListOrders from "./order/ListOrders";
 import { loadUser } from "./actions/userActions";
 import store from "./store";
 import "./App.css";
@@ -119,6 +120,15 @@ function App() {
                 }
               />
             )}
+            <Route
+              path="/orders/me"
+              element={
+                <ProtectedRoute>
+                  <ListOrders />  
+                </ProtectedRoute>
+              }
+              exact
+            />
           </Routes>
         </div>
         <Footer />
