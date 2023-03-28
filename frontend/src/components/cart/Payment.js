@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { saveShippingInfo } from "../../actions/cartActions";
 import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutSteps";
 import { useAlert } from "react-alert";
+import { createOrder, clearErrors } from "../../actions/orderActions";
 import {
   useStripe,
   useElements,
@@ -23,6 +23,7 @@ const Payment = () => {
 
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
+  const { error } = useSelector((state) => state.newOrder);
 
   const options = {
     style: {
@@ -61,9 +62,25 @@ const Payment = () => {
     if (!shippingInfo) {
       navigate("/shipping");
     }
-  }, [shippingInfo, navigate]);
+
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, shippingInfo, navigate, alert, error]);
+
+  const order = {
+    orderItems: cartItems,
+    shippingInfo,
+  };
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  if (orderInfo) {
+    order.itemsPrice = orderInfo.itemsPrice;
+    order.shippingPrice = orderInfo.shippingPrice;
+    order.taxPrice = orderInfo.taxPrice;
+    order.totalPrice = orderInfo.totalPrice;
+  }
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
   };
@@ -106,9 +123,13 @@ const Payment = () => {
         // Checks if the payment have been processed
         if (result.paymentIntent.status === "succeeded") {
           alert.success("Your order was successfully placed!");
-          // TODO: New order
 
-          dispatch(saveShippingInfo());
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
+
+          dispatch(createOrder(order));
 
           setTimeout(() => {
             navigate("/success");
