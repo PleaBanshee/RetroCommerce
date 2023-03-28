@@ -40,14 +40,32 @@ const Payment = () => {
     },
   };
 
+  const cardNumberOptions = {
+    style: {
+      base: {
+        fontSize: "16px",
+        color: "#424770",
+        letterSpacing: "0.025em",
+        "::placeholder": {
+          color: "#aab7c4",
+        },
+      },
+      invalid: {
+        color: "#9e2146",
+      },
+    },
+    placeholder: "0000 0000 0000 0000",
+  };
+
   useEffect(() => {
     if (!shippingInfo) {
       navigate("/shipping");
     }
   }, [shippingInfo, navigate]);
 
+  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const paymentData = {
-    amount: Math.round(shippingInfo.totalPrice * 100),
+    amount: Math.round(orderInfo.totalPrice * 100),
   };
 
   const submitHandler = async (e) => {
@@ -85,9 +103,10 @@ const Payment = () => {
         alert.error(result.error.message);
         document.querySelector("#pay_btn").disabled = false;
       } else {
-        // The payment is processed or not
+        // Checks if the payment have been processed
         if (result.paymentIntent.status === "succeeded") {
           alert.success("Your order was successfully placed!");
+          // TODO: New order
 
           dispatch(saveShippingInfo());
 
@@ -95,12 +114,13 @@ const Payment = () => {
             navigate("/success");
           }, 1000);
         } else {
-          alert.error("There is some issue while payment processing");
+          alert.error("There is some issue with the payment processing...");
         }
       }
     } catch (error) {
       document.querySelector("#pay_btn").disabled = false;
       alert.error(error.response.data.message);
+      console.log(error.response.data);
     }
   };
 
@@ -118,7 +138,7 @@ const Payment = () => {
                 type="text"
                 id="card_num_field"
                 className="form-control"
-                options={options}
+                options={cardNumberOptions}
               />
             </div>
 
@@ -148,7 +168,7 @@ const Payment = () => {
               className="btn btn-block py-3"
               disabled={!stripe}
             >
-              Pay - ${shippingInfo && shippingInfo.totalPrice}
+              Pay - ${orderInfo && orderInfo.totalPrice}
             </button>
           </form>
         </div>

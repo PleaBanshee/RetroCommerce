@@ -24,23 +24,17 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
-  const [stripeApi, setStripeApi] = useState("");
+  const [stripeApi, setStripeApiKey] = useState("");
 
   useEffect(() => {
     store.dispatch(loadUser());
 
-    async function getStripeApiKey() {
-      const response = await axios.get("/api/v1/stripeapi", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      setStripeApi(data.stripeApiKey);
+    async function getStripApiKey() {
+      const { data } = await axios.get("/api/v1/stripeapi");
+      setStripeApiKey(data.stripeApiKey);
     }
 
-    getStripeApiKey();
+    getStripApiKey();
   }, []);
 
   return (
