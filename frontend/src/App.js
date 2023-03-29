@@ -18,6 +18,7 @@ import ConfirmOrder from "./components/cart/ConfirmOrder";
 import Payment from "./components/cart/Payment";
 import OrderSuccess from "./components/cart/OrderSuccess";
 import ListOrders from "./order/ListOrders";
+import OrderDetails from "./order/OrderDetails";
 import { loadUser } from "./actions/userActions";
 import store from "./store";
 import "./App.css";
@@ -124,7 +125,16 @@ function App() {
               path="/orders/me"
               element={
                 <ProtectedRoute>
-                  <ListOrders />  
+                  <ListOrders />
+                </ProtectedRoute>
+              }
+              exact
+            />
+            <Route
+              path="/order/:id"
+              element={
+                <ProtectedRoute>
+                  <OrderDetails />
                 </ProtectedRoute>
               }
               exact
