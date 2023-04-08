@@ -61,7 +61,7 @@ const OrderDetails = () => {
                 <b>Phone:</b> {shippingInfo && shippingInfo.phoneNo}
               </p>
               <p className="mb-4">
-                <b>Address:</b>
+                <b>Address: </b>
                 {shippingDetails}
               </p>
               <p>
@@ -103,9 +103,7 @@ const OrderDetails = () => {
                       </div>
 
                       <div className="col-5 col-lg-5">
-                        <Link to={`/product/${item.product}`}>
-                          {item.name}
-                        </Link>
+                        <Link to={`/product/${item.product}`}>{item.name}</Link>
                       </div>
 
                       <div className="col-4 col-lg-2 mt-4 mt-lg-0">
