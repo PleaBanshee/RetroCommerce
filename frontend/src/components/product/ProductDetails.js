@@ -12,7 +12,7 @@ import MetaData from "../layout/MetaData";
 import { useParams } from "react-router-dom";
 import { addItemToCart } from "../../actions/cartActions";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
-import ListReviews from "../../review/ListReviews";
+import ListReviews from "../review/ListReviews";
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
