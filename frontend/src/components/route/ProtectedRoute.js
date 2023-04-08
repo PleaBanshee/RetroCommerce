@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "../actions/userActions";
+import { loadUser } from "../../actions/userActions";
 
 const ProtectedRoute = ({ children, isAdmin }) => {
   const {

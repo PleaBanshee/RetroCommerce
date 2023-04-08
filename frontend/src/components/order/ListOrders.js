@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
-import MetaData from "../components/layout/MetaData";
+import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { myOrders, clearErrors } from "../actions/orderActions";
+import { myOrders, clearErrors } from "../../actions/orderActions";
 import { MDBDataTable } from "mdbreact";
-import Loader from "../components/layout/Loader";
+import Loader from "../layout/Loader";
 
 const ListOrders = () => {
   const dispatch = useDispatch();
