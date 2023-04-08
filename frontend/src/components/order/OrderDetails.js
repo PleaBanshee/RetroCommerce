@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
-import MetaData from "../components/layout/MetaData";
+import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails, clearErrors } from "../actions/orderActions";
-import Loader from "../components/layout/Loader";
+import { getOrderDetails, clearErrors } from "../../actions/orderActions";
+import Loader from "../layout/Loader";
 
 const OrderDetails = () => {
   const alert = useAlert();
