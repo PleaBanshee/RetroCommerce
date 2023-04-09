@@ -4,16 +4,10 @@ import { Link } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader";
 import SideBar from "./SideBar";
-// import { getOrders } from "../../actions/orderActions";
-// import { getProducts } from "../../actions/productActions";
-
+import { getAdminProducts } from "../../actions/productActions";
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.auth);
-  const { products } = useSelector((state) => state.products);
-  const { orders, totalAmount, loading } = useSelector(
-    (state) => state.allOrders
-  );
+  const { loading, products } = useSelector((state) => state.products);
 
   let outOfStock = 0;
   products.forEach((product) => {
@@ -23,8 +17,7 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    // dispatch(getAllProducts());
-    // dispatch(getAllOrders());
+    dispatch(getAdminProducts());
   }, [dispatch]);
 
   return (
@@ -49,7 +42,7 @@ const Dashboard = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Total Amount
-                        <br /> <b>${totalAmount && totalAmount.toFixed(2)}</b>
+                        {/* <br /> <b>${totalAmount && totalAmount.toFixed(2)}</b> */}
                       </div>
                     </div>
                   </div>
@@ -82,7 +75,7 @@ const Dashboard = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Orders
-                        <br /> <b>{orders && orders.length}</b>
+                        {/* <br /> <b>{orders && orders.length}</b> */}
                       </div>
                     </div>
                     <Link
@@ -102,7 +95,7 @@ const Dashboard = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Users
-                        <br /> <b>{users && users.length}</b>
+                        {/* <br /> <b>{users && users.length}</b> */}
                       </div>
                     </div>
                     <Link
