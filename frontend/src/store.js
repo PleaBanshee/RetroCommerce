@@ -4,6 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productReducers,
   productDetailsReducer,
+  newProductReducer,
   newReviewReducer,
 } from "./reducers/productReducers";
 import {
@@ -28,6 +29,7 @@ const reducer = combineReducers({
   newOrder: newOrderReducer,
   myOrders: myOrdersReducer,
   orderDetails: orderDetailsReducer,
+  newProduct: newProductReducer,
   newReview: newReviewReducer,
 });
 
