@@ -142,15 +142,6 @@ function App() {
               exact
             />
             <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute isAdmin={true}>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-              exact
-            />
-            <Route
               path="/admin/products"
               element={
                 <ProtectedRoute isAdmin={true}>
@@ -161,6 +152,17 @@ function App() {
             />
           </Routes>
         </div>
+        <Routes>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+            exact
+          />
+        </Routes>
         <Footer />
       </div>
     </Router>

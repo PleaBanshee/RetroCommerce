@@ -5,6 +5,7 @@ import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader";
 import SideBar from "./SideBar";
 import { getAdminProducts } from "../../actions/productActions";
+
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { loading, products } = useSelector((state) => state.products);
@@ -22,7 +23,6 @@ const Dashboard = () => {
 
   return (
     <Fragment>
-      <MetaData title={"Admin Dashboard"} />
       <div className="row">
         <div className="col-12 col-md-2">
           <SideBar />
