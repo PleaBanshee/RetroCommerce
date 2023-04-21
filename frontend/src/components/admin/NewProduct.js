@@ -36,9 +36,7 @@ const NewProduct = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
 
-  const { loading, error, isCreated } = useSelector(
-    (state) => state.newProduct
-  );
+  const { loading, error, success } = useSelector((state) => state.newProduct);
 
   useEffect(() => {
     if (error) {
@@ -46,12 +44,12 @@ const NewProduct = () => {
       dispatch(clearErrors());
     }
 
-    if (isCreated) {
+    if (success) {
+      navigate("/admin/products");
       alert.success("Product created successfully");
       dispatch({ type: NEW_PRODUCT_RESET });
-      navigate.push("/admin/products");
     }
-  }, [dispatch, alert, error, isCreated, navigate]);
+  }, [dispatch, alert, error, success, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -76,6 +74,7 @@ const NewProduct = () => {
 
     setImagesPreview([]);
     setImages([]);
+
     files.forEach((file) => {
       const reader = new FileReader();
 

@@ -108,6 +108,7 @@ export const newProduct = (productData) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    console.log(error.response.data.message);
     dispatch({
       type: NEW_PRODUCT_FAIL,
       payload: error.response.data.message,
