@@ -28,6 +28,7 @@ import "./App.css";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useSelector } from "react-redux";
 
 function App() {
   const [stripeApi, setStripeApiKey] = useState("");
@@ -42,6 +43,8 @@ function App() {
 
     getStripApiKey();
   }, []);
+
+  const { user, loading } = useSelector((state) => state.auth);
 
   return (
     <Router>
@@ -173,7 +176,7 @@ function App() {
             exact
           />
         </Routes>
-        <Footer />
+        {!loading && user && user.role !== "admin" && <Footer />}
       </div>
     </Router>
   );
