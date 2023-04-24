@@ -5,10 +5,16 @@ import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader";
 import SideBar from "./SideBar";
 import { getAdminProducts } from "../../actions/productActions";
+import { getAllOrders } from "../../actions/orderActions";
+// import { allUsers } from "../../actions/userActions";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { loading, products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
+  // const { users } = useSelector((state) => state.allUsers);
+  const { orders, totalAmount, loading } = useSelector(
+    (state) => state.allOrders
+  );
 
   let outOfStock = 0;
   products.forEach((product) => {
@@ -19,6 +25,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getAdminProducts());
+    dispatch(getAllOrders());
+    // dispatch(allUsers());
   }, [dispatch]);
 
   return (
@@ -42,7 +50,7 @@ const Dashboard = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Total Amount
-                        {/* <br /> <b>${totalAmount && totalAmount.toFixed(2)}</b> */}
+                        <br /> <b>${totalAmount && totalAmount.toFixed(2)}</b>
                       </div>
                     </div>
                   </div>
@@ -75,7 +83,7 @@ const Dashboard = () => {
                     <div className="card-body">
                       <div className="text-center card-font-size">
                         Orders
-                        {/* <br /> <b>{orders && orders.length}</b> */}
+                        <br /> <b>{orders && orders.length}</b>
                       </div>
                     </div>
                     <Link
