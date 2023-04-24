@@ -6,7 +6,12 @@ import Loader from "../layout/Loader";
 import MetaData from "../layout/MetaData";
 import SideBar from "./SideBar";
 import { useAlert } from "react-alert";
-import { getAdminProducts, clearErrors } from "../../actions/productActions";
+import {
+  getAdminProducts,
+  deleteProduct,
+  clearErrors,
+} from "../../actions/productActions";
+import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
 
 const ProductsList = () => {
   const navigate = useNavigate();
@@ -14,6 +19,9 @@ const ProductsList = () => {
   const dispatch = useDispatch();
 
   const { loading, error, products } = useSelector((state) => state.products);
+  const { error: deleteError, isDeleted } = useSelector(
+    (state) => state.product || {}
+  );
 
   useEffect(() => {
     dispatch(getAdminProducts());
@@ -22,7 +30,18 @@ const ProductsList = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, error]);
+
+    if (deleteError) {
+      alert.error(deleteError);
+      dispatch(clearErrors());
+    }
+
+    if (isDeleted) {
+      alert.success("Product deleted successfully");
+      navigate("/admin/products");
+      dispatch({ type: DELETE_PRODUCT_RESET });
+    }
+  }, [dispatch, alert, error, deleteError, isDeleted, navigate]);
 
   const setProducts = () => {
     const data = {
@@ -84,7 +103,7 @@ const ProductsList = () => {
   };
 
   const deleteProductHandler = (id) => {
-    console.log(id);
+    dispatch(deleteProduct(id));
   };
 
   return (

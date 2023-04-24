@@ -6,18 +6,21 @@ const cloudinary = require("cloudinary");
 
 // create a new product --- POST /api/v1/admin/product/new
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
-  let images = [];
+  let images = undefined;
+  console.log("REQ_BODY_IMAGES: \n", req.body.images);
 
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
+    console.log(images);
   } else {
     images = req.body.images;
+    console.log(images);
   }
 
   let imagesLinks = [];
 
   for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[i], {
+    const result = await cloudinary.v2.uploader.upload(images[0][i], {
       folder: "products",
     });
 
@@ -117,6 +120,11 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   }
 
   await product.remove();
+
+  // delete images associated with the product
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+  }
 
   res.status(200).json({
     success: true,
