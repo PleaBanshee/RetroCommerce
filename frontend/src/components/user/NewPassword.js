@@ -6,7 +6,7 @@ import { newPassword, clearErrors } from "../../actions/userActions";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-const NewPassword = ({ match }) => {
+const NewPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
