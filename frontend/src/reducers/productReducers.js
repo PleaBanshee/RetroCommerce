@@ -152,7 +152,7 @@ export const newReviewReducer = (state = {}, action) => {
   }
 };
 
-export const deleteProductReducer = (state = {}, action) => {
+export const productReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_PRODUCT_REQUEST:
       return {
