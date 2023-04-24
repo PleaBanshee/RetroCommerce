@@ -7,14 +7,11 @@ const cloudinary = require("cloudinary");
 // create a new product --- POST /api/v1/admin/product/new
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
   let images = undefined;
-  console.log("REQ_BODY_IMAGES: \n", req.body.images);
 
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
-    console.log(images);
   } else {
     images = req.body.images;
-    console.log(images);
   }
 
   let imagesLinks = [];
@@ -28,6 +25,9 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
       public_id: result.public_id,
       url: result.secure_url,
     });
+
+    console.log(`Image ${i} ${imagesLinks[0][i]}`);
+    console.log(`Number of images: ${imagesLinks[0].length}`);
   }
 
   req.body.images = imagesLinks;
