@@ -18,6 +18,7 @@ import Shipping from "./components/cart/Shipping";
 import ConfirmOrder from "./components/cart/ConfirmOrder";
 import Payment from "./components/cart/Payment";
 import OrderSuccess from "./components/cart/OrderSuccess";
+import OrdersList from "./components/admin/OrdersList";
 import ListOrders from "./components/order/ListOrders";
 import OrderDetails from "./components/order/OrderDetails";
 import ProductsList from "./components/admin/ProductsList";
@@ -181,6 +182,15 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <UpdateProduct />
+              </ProtectedRoute>
+            }
+            exact
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <OrdersList />
               </ProtectedRoute>
             }
             exact

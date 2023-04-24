@@ -6,7 +6,7 @@ const cloudinary = require("cloudinary");
 
 // create a new product --- POST /api/v1/admin/product/new
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
-  let images = undefined;
+  let images = [];
 
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
@@ -17,7 +17,7 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
   let imagesLinks = [];
 
   for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[0][i], {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
       folder: "products",
     });
 
@@ -117,7 +117,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     let imagesLinks = [];
 
     for (let i = 0; i < images.length; i++) {
-      const result = await cloudinary.v2.uploader.upload(images[i], {
+      const result = await cloudinary.v2.uploader.upload(images[0][i], {
         folder: "products",
       });
 
