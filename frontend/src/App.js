@@ -26,6 +26,7 @@ import ProductsList from "./components/admin/ProductsList";
 import NewProduct from "./components/admin/NewProduct";
 import UpdateProduct from "./components/admin/UpdateProduct";
 import { loadUser } from "./actions/userActions";
+import UsersList from "./components/admin/UsersList";
 import store from "./store";
 import "./App.css";
 import axios from "axios";
@@ -201,6 +202,15 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <ProcessOrder />
+              </ProtectedRoute>
+            }
+            exact
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UsersList />
               </ProtectedRoute>
             }
             exact
