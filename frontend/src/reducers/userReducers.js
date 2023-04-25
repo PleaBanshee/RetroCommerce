@@ -15,6 +15,7 @@ import {
   ALL_USERS_FAIL,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
+  UPDATE_USER_RESET,
   UPDATE_USER_FAIL,
   UPDATE_PASSWORD_REQUEST,
   UPDATE_PASSWORD_SUCCESS,
@@ -24,6 +25,9 @@ import {
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAIL,
   UPDATE_PROFILE_RESET,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAIL,
@@ -97,11 +101,6 @@ export const userReducer = (state = {}, action) => {
         ...state,
         loading: true,
       };
-    case ALL_USERS_SUCCESS:
-      return {
-        loading: false,
-        users: action.payload,
-      };
     case UPDATE_USER_SUCCESS:
     case UPDATE_PASSWORD_SUCCESS:
     case UPDATE_PROFILE_SUCCESS:
@@ -110,7 +109,6 @@ export const userReducer = (state = {}, action) => {
         loading: false,
         isUpdated: action.payload,
       };
-    case ALL_USERS_FAIL:
     case UPDATE_USER_FAIL:
     case UPDATE_PASSWORD_FAIL:
     case UPDATE_PROFILE_FAIL:
@@ -119,6 +117,7 @@ export const userReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case UPDATE_USER_RESET:
     case UPDATE_PROFILE_RESET:
     case UPDATE_PASSWORD_RESET:
       return {
@@ -187,6 +186,35 @@ export const allUsersReducer = (state = { users: [] }, action) => {
         users: action.payload,
       };
     case ALL_USERS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const userDetailsReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case USER_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case USER_DETAILS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload,
+      };
+    case USER_DETAILS_FAIL:
       return {
         ...state,
         loading: false,
