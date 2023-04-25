@@ -8,10 +8,10 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllOrders,
-  //   deleteOrder,
+  deleteOrder,
   clearErrors,
 } from "../../actions/orderActions";
-// import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
+import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
 
 const OrdersList = () => {
   const alert = useAlert();
@@ -19,9 +19,7 @@ const OrdersList = () => {
   const navigate = useNavigate();
 
   const { loading, error, orders } = useSelector((state) => state.allOrders);
-  // const { error: deleteError, isDeleted } = useSelector(
-  //   (state) => state.order
-  // );
+  const { isDeleted } = useSelector((state) => state.order);
 
   useEffect(() => {
     dispatch(getAllOrders());
@@ -31,21 +29,16 @@ const OrdersList = () => {
       dispatch(clearErrors());
     }
 
-    // if (deleteError) {
-    //     alert.error(deleteError);
-    //     dispatch(clearErrors());
-    // }
+    if (isDeleted) {
+      alert.success("Order deleted successfully");
+      navigate("/admin/orders");
+      dispatch({ type: DELETE_ORDER_RESET });
+    }
+  }, [dispatch, alert, error, navigate, isDeleted]);
 
-    // if (isDeleted) {
-    //     alert.success("Order deleted successfully");
-    //     navigate("/admin/orders");
-    //     dispatch({ type: DELETE_ORDER_RESET });
-    // }
-  }, [dispatch, alert, error, navigate]);
-
-  // const deleteOrderHandler = (id) => {
-  //   dispatch(deleteOrder(id));
-  // };
+  const deleteOrderHandler = (id) => {
+    dispatch(deleteOrder(id));
+  };
 
   const setOrders = () => {
     const data = {
@@ -100,7 +93,7 @@ const OrdersList = () => {
             </Link>
             <button
               className="btn btn-danger py-1 px-2 ml-2"
-              // onClick={() => deleteOrderHandler(order._id)}
+              onClick={() => deleteOrderHandler(order._id)}
             >
               <i className="fa fa-trash"></i>
             </button>
