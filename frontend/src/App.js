@@ -11,6 +11,7 @@ import Profile from "./components/user/Profile";
 import ProtectedRoute from "./components/route/ProtectedRoute";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
+import UpdateUser from "./components/admin/UpdateUser";
 import ForgotPassword from "./components/user/ForgotPassword";
 import NewPassword from "./components/user/NewPassword";
 import Cart from "./components/cart/Cart";
@@ -211,6 +212,15 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <UsersList />
+              </ProtectedRoute>
+            }
+            exact
+          />
+          <Route
+            path="/admin/user/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UpdateUser />
               </ProtectedRoute>
             }
             exact
