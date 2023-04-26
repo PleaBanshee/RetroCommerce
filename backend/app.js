@@ -11,7 +11,7 @@ app.use(
   bodyParser.urlencoded({
     limit: "50mb",
     extended: true,
-    parameterLimit: 50000,
+    parameterLimit: 1000000000,
   })
 );
 app.use(cookieParser());
@@ -21,10 +21,12 @@ app.use(fileUpload());
 const products = require("./routes/product");
 const auth = require("./routes/auth");
 const orders = require("./routes/order");
+const payment = require("./routes/payment");
 
 app.use("/api/v1", products);
 app.use("/api/v1", auth);
 app.use("/api/v1", orders);
+app.use("/api/v1", payment);
 
 app.use(errorMiddleware);
 

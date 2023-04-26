@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 const Cart = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
+  const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
 
   const increaseQty = (id, quantity, stock) => {
@@ -32,10 +33,11 @@ const Cart = () => {
     alert.success("Item removed from cart");
   };
 
-  //   const checkoutHandler = () => {
-  //     document.querySelector("#checkout_btn").disabled = true;
-  //     dispatch(createOrder({ items: cartItems }));
-  //   };
+  const checkoutHandler = () => {
+    navigate("/login?redirect=shipping");
+    // document.querySelector("#checkout_btn").disabled = true;
+    // dispatch(createOrder({ items: cartItems }));
+  };
 
   return (
     <Fragment>
@@ -51,10 +53,10 @@ const Cart = () => {
           <div className="row d-flex justify-content-between">
             <div className="col-12 col-lg-8">
               {cartItems.map((item) => (
-                <Fragment>
+                <Fragment key={item.product}>
                   <hr />
 
-                  <div className="cart-item" key={item.product}>
+                  <div className="cart-item">
                     <div className="row">
                       <div className="col-4 col-lg-3">
                         <img
@@ -151,7 +153,7 @@ const Cart = () => {
                 <button
                   id="checkout_btn"
                   className="btn btn-primary btn-block"
-                  //   onClick={checkoutHandler}
+                  onClick={checkoutHandler}
                 >
                   Check Out
                 </button>

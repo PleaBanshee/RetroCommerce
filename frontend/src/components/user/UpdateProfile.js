@@ -46,7 +46,7 @@ const UpdateProfile = () => {
         type: UPDATE_PROFILE_RESET,
       });
     }
-  }, [alert, error, isUpdated, navigate]);
+  }, [dispatch, alert, error, isUpdated, navigate, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
