@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MDBDataTable } from "mdbreact";
 import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader";
@@ -13,11 +13,10 @@ const UsersList = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const params = useParams();
 
   const isAdmin = useSelector((state) => state.auth.user.role === "admin");
   const currentUser = useSelector((state) => state.auth.user);
-  const isCurrentUser = currentUser._id === params.id;
+  const isCurrentUser = currentUser._id;
 
   const { loading, error, users } = useSelector((state) => state.allUsers);
   const { isDeleted } = useSelector((state) => state.user);
@@ -30,11 +29,6 @@ const UsersList = () => {
       dispatch(clearErrors());
     }
 
-    if (isAdmin && isCurrentUser) {
-      alert.error("You cannot delete your own profile as an admin");
-      dispatch(clearErrors());
-    }
-
     if (isDeleted) {
       alert.success("User deleted successfully");
       navigate("/admin/users");
@@ -43,6 +37,11 @@ const UsersList = () => {
   }, [dispatch, alert, error, navigate, isDeleted, isAdmin, isCurrentUser]);
 
   const deleteUserHandler = (id) => {
+    if (isAdmin && id === currentUser._id) {
+      alert.error("You cannot delete your own profile as an admin");
+      return;
+    }
+
     dispatch(deleteUser(id));
   };
 
