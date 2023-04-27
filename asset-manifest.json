@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/RetroCommerce/static/css/main.9327f75f.css",
+    "main.js": "/RetroCommerce/static/js/main.a7cb917d.js",
+    "index.html": "/RetroCommerce/index.html",
+    "main.9327f75f.css.map": "/RetroCommerce/static/css/main.9327f75f.css.map",
+    "main.a7cb917d.js.map": "/RetroCommerce/static/js/main.a7cb917d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9327f75f.css",
+    "static/js/main.a7cb917d.js"
+  ]
+}
