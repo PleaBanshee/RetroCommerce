@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const path = require("path");
 
 const errorMiddleware = require("./middlewares/errors");
 app.use(express.json({ limit: "50mb" }));
@@ -28,8 +29,14 @@ app.use("/api/v1", auth);
 app.use("/api/v1", orders);
 app.use("/api/v1", payment);
 
-app.use(errorMiddleware);
+if (process.env.NODE_ENV === "PRODUCTION") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-module.exports = app;
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+  });
+}
+
+app.use(errorMiddleware);
 
 module.exports = app;
