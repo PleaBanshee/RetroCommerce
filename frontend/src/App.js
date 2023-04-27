@@ -50,7 +50,7 @@ function App() {
     getStripApiKey();
   }, []);
 
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
 
   return (
     <Router>
@@ -236,7 +236,7 @@ function App() {
             exact
           />
         </Routes>
-        {!loading && user && user.role !== "admin" && <Footer />}
+        {!loading && (!isAuthenticated || user.role !== "admin") && <Footer />}
       </div>
     </Router>
   );
